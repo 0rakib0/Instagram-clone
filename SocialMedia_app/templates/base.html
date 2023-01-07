@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title_block %} home page {% endblock%}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Facebook Favicon -->
+    <link rel="icon" href="{% static 'post_app/images/favicon.png' %}" />
+
+    <!-- Fontawesome Icons  -->
+    <script
+      src="https://kit.fontawesome.com/7433d3320f.js" crossorigin="anonymous"></script>
+
+    <!-- CSS File  -->
+    <link rel="stylesheet" href="{% static 'post_app/styles.css' %}" />
+  </head>
+  <body>
+    <!-- Navigation Section  -->
+    <nav>
+      <!-- Left Section  -->
+      <div class="nav-left">
+        <a href="{% url 'home' %}"><img src="{% static 'post_app/images/logo.png' %}" class="logo" /></a>
+        <ul>
+          <li><img src="{% static 'post_app/images/notification.png' %}" /></li>
+          <li><img src="{% static 'post_app/images/inbox.png' %}" /></li>
+          <li><img src="{% static 'post_app/images/video.png' %}" /></li>
+        </ul>
+      </div>
+      <!-- Right Section  -->
+      <div class="nav-right">
+        <!-- Searchbox  -->
+        <div class="search-box">
+          <img src="{% static 'post_app/images/search.png' %}"/>
+          <form method="GET">
+          <input type="text" name="search"  placeholder="Search"/>
+        </form>
+        </div>
+        <div class="nav-user-icon online" onclick="settingsMenuToggle()">
+          <a href="{% url 'Auth_app:profile' id=user.id %}">
+            {% if user.prfole_pic %}
+              <img src="/media/{{user.prfole_pic}}" class="pd-image" />
+            {% else %}
+              <img src="/media/profle.png" class="pd-image" alt="profile_pic">
+            {% endif %}
+          </a>
+
+          <a href="{% url 'Auth_app:logout' %}" style="text-decoration: none; color:aliceblue" class="btn btn-secondary">Logout</a>
+        </div>
+      </div>
+
+      <!-- Settings Menu Section  -->
+      <div class="settings-menu">
+        <!-- Dark Button Toggle  -->
+        <div id="dark-btn">
+          <span></span>
+        </div>
+        <div class="settings-menu-inner">
+          <div class="user-profile">
+            <img src="{% static 'post_app/images/profile-pic.jpg' %}" />
+            <div>
+              <p>Prashant Bhardwaj</p>
+              <a href="#">See your profile</a>
+            </div>
+          </div>
+          <hr />
+          <div class="user-profile">
+            <img src="{% static 'post_app/images/feedback.png' %}" />
+            <div>
+              <p>Give Feedback</p>
+              <a href="#">Help us to improve!</a>
+            </div>
+          </div>
+          <hr />
+
+          <div class="settings-links">
+            <img src="{% static 'post_app/images/setting.png' %}" class="settings-icon" />
+            <a href="#"
+              >Settings & Privacy <img src="{% static 'post_app/images/arrow.png' %}" width="10px"
+            /></a>
+          </div>
+          <div class="settings-links">
+            <img src="{% static 'post_app/images/help.png' %}" class="settings-icon" />
+            <a href="#"
+              >Help & Support <img src="{% static 'post_app/images/arrow.png' %}" width="10px"
+            /></a>
+          </div>
+          <div class="settings-links">
+            <img src="{% static 'post_app/images/display.png' %}" class="settings-icon" />
+            <a href="#"
+              >Display & Accessibility <img src="{% static 'post_app/images/arrow.png' %}" width="10px"
+            /></a>
+          </div>
+          <div class="settings-links">
+            <img src="{% static 'post_app/images/logout.png' %}" class="settings-icon" />
+            <a href="#">Logout <img src="{% static 'post_app/images/arrow.png' %}" width="10px" /></a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
+    {% block body_block %}
+      
+
+
+
+
+    {% endblock  %}
+
+
+
+
+   
+    <!-- JavaScript File  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title_block %} {{title}} {% endblock  %}
+
+{% block body_block %}
+
+
+
+
+<div class="container">
+    <!-- Left Sidebar  -->
+    <div class="left-sidebar">
+      <div class="imp-links">
+        <a href="#"><img src="{% static 'post_app/images/news.png' %}" />Latest News</a>
+        <a href="#"><img src="{% static 'post_app/images/friends.png' %}" />Friends</a>
+        <a href="#"><img src="{% static 'post_app/images/group.png' %}" />Group</a>
+        <a href="#"><img src="{% static 'post_app/images/marketplace.png' %}" />Marketplace</a>
+        <a href="#"><img src="{% static 'post_app/images/watch.png' %}" />Watch</a>
+        <a href="#">See More</a>
+      </div>
+      <div class="shortcut-links">
+        <p>Your Shortcuts</p>
+        <a href="#"><img src="{% static 'post_app/images/shortcut-1.png' %}" />Frontend Developers</a>
+        <a href="#"><img src="{% static 'post_app/images/shortcut-2.png' %}" />Backend Developers</a>
+        <a href="#"
+          ><img src="{% static 'post_app/images/shortcut-3.png' %}" />MERN Stack Developers</a
+        >
+        <a href="#"
+          ><img src="{% static 'post_app/images/shortcut-4.png' %}" />React Native Developers</a
+        >
+      </div>
+    </div>
+    <!-- Middle Content  -->
+    <!-- Story Section  -->
+
+ 
+
+
+
+  <div class="main-content">
+  {% if search %}
+    <h3>People</h3>
+
+  {% if result1 %}
+
+    {% for user in result1 %}
+      <div class="row d-flex justify-content-between write-post-container">
+          <div class="col-sm-2">
+              {% if user.prfole_pic %}
+                  <img src="/media/{{user.prfole_pic}}" class="rounded-circle" width="40px" height="40px" alt="">
+              {% else %}
+                  <img src="/media/profle.png" class="rounded-circle" width="40px" height="40px" alt="">
+              {% endif %}
+          </div>
+          <div class="col-sm-10">
+              <a href="{% url 'Auth_app:other_user' username=user.username %}" style="text-decoration: none; color:black" >{{user.first_name}} {{user.last_name}}</a><br>
+              <small>11 follower</small>
+          </div>
+      </div>
+    {% endfor %}
+
+  {% else %}
+
+  {% for user in result2 %}
+  <div class="row d-flex justify-content-between write-post-container">
+      <div class="col-sm-2">
+          {% if user.prfole_pic %}
+              <img src="/media/{{user.prfole_pic}}" class="rounded-circle" width="40px" height="40px" alt="">
+          {% else %}
+              <img src="/media/profle.png" class="rounded-circle" width="40px" height="40px" alt="">
+          {% endif %}
+      </div>
+      <div class="col-sm-10">
+          <a href="{% url 'Auth_app:other_user' username=user.username %}" style="text-decoration: none; color:black" >{{user.first_name}} {{user.last_name}}</a><br>
+          <small>11 follower</small>
+      </div>
+  </div>
+{% endfor %}
+
+  {% endif %}
+  
+
+{% else %}
+      <div class="story-gallery">
+        <div class="story story1">
+          <img src="{% static 'post_app/images/upload.webp' %}" />
+          <p>Post Story</p>
+        </div>
+        <div class="story story2">
+          <img
+            src="{% static 'post_app/images/member-1.jpg' %}
+          "
+          />
+          <p>Bill Gates</p>
+        </div>
+        <div class="story story3">
+          <img src="{% static 'post_app/images/member-2.jpg' %}" />
+          <p>Jeff Bezos</p>
+        </div>
+        <div class="story story4">
+          <img src="{% static 'post_app/images/member-3.jpg' %}" />
+          <p>Zuckerberg</p>
+        </div>
+        <div class="story story5">
+          <img src="{% static 'post_app/images/member-4.jpg' %}" />
+          <p>Ratan Tata</p>
+        </div>
+      </div>
+
+      <!-- Post Section  -->
+
+      
+        
+      <div class="write-post-container">
+        <div class="user-profile">
+          <img src="{% static 'post_app/images/profile-pic.jpg' %}" />
+          <div>
+            <p>Prashant Bhardwaj</p>
+            <small>Public <i class="fa-solid fa-caret-down"></i></small>
+          </div>
+        </div>
+        
+        <div class="post-input-container">
+          <textarea
+          rows="3"
+          placeholder="What's on your mind, Prashant?"
+          ></textarea>
+          <div class="add-post-links">
+            <a href="#"><img src="{% static 'post_app/images/live-video.png' %}" /> Live Video</a>
+            <a href="#"><img src="{% static 'post_app/images/photo.png' %}" /> Photo/Video</a>
+            <a href="#"><img src="{% static 'post_app/images/feeling.png' %}" /> Feeling/Activity</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Uploaded Posts Section  -->
+      <!-- Post 1  -->
+      {% for post in posts %}
+      <div class="post-container">
+        <div class="post-row">
+          <div class="user-profile">
+            {% if post.author.prfole_pic %}
+              <img src="/media/{{post.author.prfole_pic}}" class="rounded-circle" width="40px" height="40px" alt="">
+            {% else %}
+              <img src="/media/profle.png" class="rounded-circle" width="40px" height="40px" alt="">
+            {% endif %}
+            <div>
+              <a href="{% url 'Auth_app:other_user' username=post.author.username %}"><p>{{post.author.first_name}} {{post.author.last_name}}</p></a>
+              <span>{{post.upload_date}}</span>
+            </div>
+          </div>
+          <a href="#"><i class="fa-solid fa-ellipsis-v"></i></a>
+        </div>
+        <p class="post-text">
+          {{post.caption|linebreaks}}
+        </p>
+        <img src="/media/{{post.image}}" class="post-img" />
+
+        <div class="post-row">
+          <div class="activity-icons">
+            <a href="#" style="text-decoration:none ;"><div><img src="{% static 'post_app/images/like-blue.png' %}" /> 75k+</div></a>
+              <a href="#" style="text-decoration:none ;"><div><img src="{% static 'post_app/images/like.png' %}" /> 75k+</div></a>
+            <div><img src="{% static 'post_app/images/comments.png' %}" /> 5k+</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      
+      <!-- Load More  -->
+      <button type="button" class="load-more-button">Load More</button>
+      {% endif %}
+    </div>
+
+
+    <!-- Right Sidebar  -->
+    <div class="right-sidebar">
+      <div class="sidebar-title">
+        <h4>Events</h4>
+        <a href="#">See All</a>
+      </div>
+
+      <div class="event">
+        <div class="left-event">
+          <h3>1</h3>
+          <span>October</span>
+        </div>
+        <div class="right-event">
+          <h4>Social Media</h4>
+          <p>
+            <i class="fa-solid fa-location-dot"></i>Ambience Mall, Gurgaon
+          </p>
+          <a href="#">More Info</a>
+        </div>
+      </div>
+      <div class="event">
+        <div class="left-event">
+          <h3>5</h3>
+          <span>November</span>
+        </div>
+        <div class="right-event">
+          <h4>E-commerce</h4>
+          <p><i class="fa-solid fa-location-dot"></i>Cyber Hub, Gurgaon</p>
+          <a href="#">More Info</a>
+        </div>
+      </div>
+
+      <div class="sidebar-title">
+        <h4>Avertisement</h4>
+        <a href="#">Close</a>
+      </div>
+      <img src="{% static 'post_app/images/advertisement.png' %}" class="sidebar-ads" />
+
+      <div class="sidebar-title">
+        <h4>Conversation</h4>
+        <a href="#">Hide Chat</a>
+      </div>
+
+      <div class="online-list">
+        <div class="online">
+          <img src="{% static 'post_app/images/member-1.jpg' %}" />
+        </div>
+        <p>Bill Gates</p>
+      </div>
+      <div class="online-list">
+        <div class="online">
+          <img src="{% static 'post_app/images/member-2.jpg' %}" />
+        </div>
+        <p>Jeff Bezos</p>
+      </div>
+      <div class="online-list">
+        <div class="online">
+          <img src="{% static 'post_app/images/member-3.jpg' %}" />
+        </div>
+        <p>Mark Zuckerberg</p>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock  %}

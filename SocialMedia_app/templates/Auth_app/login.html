@@ -1,0 +1,26 @@
+
+{% extends "auth_base.html" %}
+
+{% block title_block %} {{title}} {% endblock%}
+
+
+{% block body_block %}
+<div class="form">
+    <form class="a-form" action="{% url 'Auth_app:do_login' %}" method="POST">
+        <h4 class="text-center py-3">Login</h4>
+        {% csrf_token %}
+        <input type="email" id="Email" class="a-email" name="email" placeholder="Email address or phone number"
+            autofocus="autofocus" required />
+        <input type="password" id="Password" class="a-pss" name="password" placeholder="Password"
+            autofocus="autofocus" />
+        <input type="submit" class="a-sub" value="Log In" />
+        <a href="" class="a-link">Forgotten password?</a>
+        <hr class="a-hr">
+        <a href="{% url 'Auth_app:register' %}" style="text-decoration:None ;"><input type="submit " value="Create New Account" class="a-but" /></a>
+    </form>
+    <div class="create-page">
+        <a href="" class="a-href">Create a Page</a></b> for a celebrity, band or business.
+    </div>
+    </div>
+</div>
+{% endblock%}

@@ -1,0 +1,42 @@
+{% extends "auth_base.html" %}
+
+{% block title_block %} {{title}} {% endblock  %}
+
+{% block body_block %}
+<form class="form-control px-4 py-4" action="{% url 'Auth_app:register' %}" method="POST">
+  {% csrf_token %}
+    <h3 class="text-center py-2">Create New Account</h3>
+    <div class="mb-3">
+      <input type="text" class="form-control" name="first_name" placeholder="First name" required aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <input type="text" class="form-control" name="last_name" placeholder="Last name" required aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <input type="text" class="form-control" name="username" placeholder="username" required aria-describedby="emailHelp">
+      </div>
+
+    <div class="mb-3">
+    <input type="Email" class="form-control" name="email" placeholder="email" required aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+      <input type="password" placeholder="New password" name="password" required class="form-control" id="exampleInputPassword1">
+    </div>
+
+    <div class="mb-3">
+        <input type="date" class="form-control" name="dob" required id="exampleInputPassword1">
+    </div>
+
+    <div class="mb-3">
+        <select class="form-select" name="gender" aria-label="Default select example">
+            <option selected class="text-center">SELECT GENDER</option>
+            <option value="male">Male</option>
+            <option value="femal">Female</option>
+            <option value="other">Other</option>
+          </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary d-flex-center">Submit</button> <br>
+    <span>Already have an account <a href="{% url 'Auth_app:login' %}">Login</a></span>
+  </form>
+{% endblock  %}

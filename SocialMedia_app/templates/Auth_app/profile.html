@@ -1,0 +1,363 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title_block %}
+  {{title}}
+{% endblock  %}
+
+
+{% block body_block %}
+  
+
+
+<div class="profile-container">
+    <!-- <img src="{% static 'post_app/images/cover.png' %}" class="cover-img" /> -->
+    {% if user.cover_pic %}
+          <img src="/media/{{user.cover_pic}}" class="cover-img" />
+        {% else %}
+          <img src="/media/cover.jpg" class="cover-img" alt="profile_pic">
+        {% endif %}
+    <div class="profile-details">
+      <div class="pd-left">
+        <div class="pd-row">
+        {% if user.prfole_pic %}
+          <img src="/media/{{user.prfole_pic}}" class="pd-image" />
+        {% else %}
+          <img src="/media/profle.png" class="pd-image" alt="profile_pic">
+        {% endif %}
+          <div>
+            <h3>{{user.first_name}} {{user.last_name}}</h3>
+            <p>1k+ Friends - 145 mutual</p>
+            <img src="{% static 'post_app/images/member-1.jpg' %}" />
+            <img src="{% static 'post_app/images/member-2.jpg' %}" />
+            <img src="{% static 'post_app/images/member-3.jpg' %}" />
+            <img src="{% static 'post_app/images/member-4.jpg' %}" />
+          </div>
+        </div>
+      </div>
+      <div class="pd-right">
+        <a href="{% url 'Auth_app:profile' id=user.id %}"></a><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+           Edit Profile
+      </button></a>
+          
+        <br />
+        <a href=""><img src="{% static 'post_app/images/more.png' %}" /></a>
+      </div>
+    </div>
+
+    <!-- Profile Information  -->
+    <div class="profile-info">
+      <div class="info-col">
+        <div class="profile-intro">
+          <h3>Intro</h3>
+          <p class="profile-desc">
+            {{user.more_info.bio}}
+          </p>
+          <hr />
+          <ul>
+            <li>
+              <img src="{% static 'post_app/images/profile-job.png' %}" /> {{user.more_info.work}}
+            </li>
+            <li>
+              <img src="{% static 'post_app/images/profile-study.png' %}" /> {{user.more_info.study}}
+            </li>
+            <li>
+              <img src="{% static 'post_app/images/profile-home.png' %}" /> {{user.more_info.live_in}}
+            </li>
+            <li>
+              <img src="{% static 'post_app/images/profile-location.png' %}" /> {{user.more_info.live_in}}
+            </li>
+          </ul>
+          <div class="pd-right">
+          {% if user_morinfo %}
+          <a href="{% url 'Auth_app:profile' id=user.id %}"></a><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalu">
+            Edit More Info
+          </button></a>
+          {% else %}
+          <a href="{% url 'Auth_app:profile' id=user.id %}"></a><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalm">
+             Add More Info
+          </button></a>
+          {% endif %}
+        </div>
+
+        <div class="profile-intro">
+          <div class="title-box">
+            <h3>Photos</h3>
+            <a href="#">All Photos</a>
+          </div>
+          <div class="photo-box">
+            <div><img src="{% static 'post_app/images/photo1.jpg' %}" /></div>
+            <div><img src="{% static 'post_app/images/photo2.jpg' %}" /></div>
+            <div><img src="{% static 'post_app/images/photo3.jpg' %}" /></div>
+            <div><img src="{% static 'post_app/images/photo4.jpg' %}" /></div>
+            <div><img src="{% static 'post_app/images/photo5.jpg' %}" /></div>
+            <div><img src="{% static 'post_app/images/photo6.jpg' %}" /></div>
+          </div>
+        </div>
+
+        <div class="profile-intro">
+          <div class="title-box">
+            <h3>Friends</h3>
+            <a href="#">All Friends</a>
+          </div>
+          <p>1k+ (145 mutual)</p>
+          <div class="friends-box">
+            <div>
+              <img src="{% static 'post_app/images/member-1.jpg' %}" />
+              <p>Bill Gates</p>
+            </div>
+            <div>
+              <img src="{% static 'post_app/images/member-2.jpg' %}" />
+              <p>Jeff Bezos</p>
+            </div>
+            <div>
+              <img src="{% static 'post_app/images/member-3.jpg' %}" />
+              <p>Zuckerberg</p>
+            </div>
+            <div>
+              <img src="{% static 'post_app/images/member-4.jpg' %}" />
+              <p>Ratan Tata</p>
+            </div>
+            <div>
+              <img src="{% static 'post_app/images/member-5.jpg' %}" />
+              <p>M Ambani</p>
+            </div>
+            <div>
+              <img src="{% static 'post_app/images/member-6.jpg' %}" />
+              <p>Virat Kholi</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="post-col">
+        <!-- Post Section  -->
+        <div class="write-post-container">
+          <div class="user-profile">
+
+            {% if user.prfole_pic %}
+                <img src="/media/{{user.prfole_pic}}" class="pd-image" />
+              {% else %}
+                <img src="/media/profle.png" class="pd-image" alt="profile_pic">
+              {% endif %}
+
+            <div>
+              <p>{{user.first_name}} {{user.last_name}}</p>
+            </div>
+          </div>
+
+          <div class="post-input-container">
+            <form method="POST" action="{% url 'Auth_app:profile' id=user.id %}" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input type="file" name="image">
+              <textarea rows="3" name="caption" placeholder="What's on your mind, Prashant?"></textarea>
+              <button type="submit" class="btn btn-primary" >Post</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Uploaded Posts Section  -->
+        <!-- Post 1  -->
+        {% for post  in user.post.all %}        
+        <div class="post-container">
+          <div class="post-row">
+            <div class="user-profile">
+              {% if user.prfole_pic %}
+                <img src="/media/{{user.prfole_pic}}" class="pd-image" />
+              {% else %}
+                <img src="/media/profle.png" class="pd-image" alt="profile_pic">
+              {% endif %}
+              <div>
+                <p>{{user.first_name}} {{user.last_name}}</p>
+                <span>{{post.upload_date}}</span>
+              </div>
+            </div>
+            <a href="#"><i class="fa-solid fa-ellipsis-v"></i></a>
+          </div>
+          <p class="post-text">
+            {{post.caption|linebreaks}}
+          </p>
+          <img src="/media/{{post.image}}" class="post-img" />
+
+          <div class="post-row">
+            <div class="activity-icons">
+              <a href="#" style="text-decoration:none ;"><div><img src="{% static 'post_app/images/like-blue.png' %}" /> 75k+</div></a>
+              <a href="#" style="text-decoration:none ;"><div><img src="{% static 'post_app/images/like.png' %}" /> 75k+</div></a>
+              <div><img src="{% static 'post_app/images/comments.png' %}" /> 5k+</div>
+            </div>
+            <div class="post-profile-icon">
+              <button class="btn btn-secondary">Edit Post</button>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  
+
+
+
+  <!-- Button trigger modal -->
+
+  <!-- Modal -->
+
+  <!------------------------ User Information Modal ---------------------->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'Auth_app:update_profile' %}" method="POST" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <div class="mb-3">
+              <input type="text" value="{{user.first_name}}"  name="first_name" class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <input type="text" value="{{user.id}}"  name="id" class="form-control" hidden>
+            </div>
+            
+
+            <div class="mb-3">
+              <input type="text" value="{{user.last_name}}" name="last_name" class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <input type="Email" value="{{user.email}}" name="email" class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <input type="text" value="{{user.username}}" class="form-control" readonly>
+            </div>
+
+            <div class="mb-3">
+              <input type="password" name="password" placeholder='Fill If you want to change Password' class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <label for="">Uplad if you want to chagbe Profile pic</label>
+              <input type="file" value="{{user.prfole_pic}}" name="profile_pic" class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <label for="">Uplad if you want to chagbe Cover pic</label><br>
+              <input type="file" value="{{user.cover_pic}}" name="cover_pic" class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <input type="date" value="{{user.dob}}" name="dob" class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <select class="form-select" name="gender" aria-label="Default select example">
+                  <option selected class="text-center">SELECT GENDER</option>
+                  <option value="male">Male</option>
+                  <option value="femal">Female</option>
+                  <option value="other">Other</option>
+                </select>
+          </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------------------------------User More information modal -->
+
+  <div class="modal fade" id="exampleModalm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add More Info</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'Auth_app:Add_more' %}" method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+              <input type="text" value="{{user.username}}" placeholder="username"  name="username" readonly class="form-control">
+            </div>
+            <div class="mb-3">
+              <input type="text" value="{{user.id}}" name="id" hidden>
+            </div>
+
+            <div class="mb-3">
+              <input type="text" placeholder="work" value="{%for i in user_morinfo%}{{i.work}}{% endfor %}"  name="work" class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <input type="text" placeholder="Add Study" value="{%for i in user_morinfo%}{{i.study}}{% endfor %}"  name="study" class="form-control">
+            </div>            
+
+            <div class="mb-3">
+              <input type="text" placeholder="Where are you live" value="{%for i in user_morinfo%}{{i.live_in}}{% endfor %}" name="live_in" class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <input type="text" placeholder="whats your mind" value="{%for i in user_morinfo%}{{i.bio}}{% endfor %}" name="bio" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- ---------------) Update Info Mdal (------------------ -->
+  <div class="modal fade" id="exampleModalu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Inforamtion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'Auth_app:update_more' %}" method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+              <input type="text" value="{{user.username}}" placeholder="username"  name="username" readonly class="form-control">
+            </div>
+            <div class="mb-3">
+              <input type="text" value="{%for i in user_morinfo%}{{i.id}}{% endfor %}" name="id" hidden>
+            </div>
+
+            <div class="mb-3">
+              <input type="text" placeholder="work" value="{%for i in user_morinfo%}{{i.work}}{% endfor %}"  name="work" class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <input type="text" placeholder="Add Study" value="{%for i in user_morinfo%}{{i.study}}{% endfor %}"  name="study" class="form-control">
+            </div>            
+
+            <div class="mb-3">
+              <input type="text" placeholder="Where are you live" value="{%for i in user_morinfo%}{{i.live_in}}{% endfor %}" name="live_in" class="form-control">
+            </div>
+
+            <div class="mb-3">
+              <input type="text" placeholder="whats your mind" value="{%for i in user_morinfo%}{{i.bio}}{% endfor %}" name="bio" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
